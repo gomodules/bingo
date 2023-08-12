@@ -18,10 +18,10 @@ import (
 	"unicode"
 
 	"github.com/Masterminds/semver"
-	"github.com/bwplotka/bingo/pkg/bingo"
-	"github.com/bwplotka/bingo/pkg/mod"
-	"github.com/bwplotka/bingo/pkg/runner"
-	"github.com/bwplotka/bingo/pkg/version"
+	"github.com/gomodules/bingo/pkg/bingo"
+	"github.com/gomodules/bingo/pkg/mod"
+	"github.com/gomodules/bingo/pkg/runner"
+	"github.com/gomodules/bingo/pkg/version"
 	"github.com/efficientgo/core/errcapture"
 	"github.com/efficientgo/core/errors"
 	"golang.org/x/mod/module"
@@ -669,7 +669,7 @@ func getPackage(ctx context.Context, logger *log.Logger, c installPackageConfig,
 func localGoModFileAfterGet(gopath string, target bingo.Package) string {
 	modulePath := target.Module.String()
 
-	// Go get uses special notation for non-supported names. See https://github.com/bwplotka/bingo/issues/65.
+	// Go get uses special notation for non-supported names. See https://github.com/gomodules/bingo/issues/65.
 	var b strings.Builder
 	b.Grow(len(modulePath))
 	for i := 0; i < len(modulePath); i++ {
@@ -791,7 +791,7 @@ func install(ctx context.Context, logger *log.Logger, r *runner.Runner, modDir s
 
 			// TODO(bwplotka): Add native mode for forks.
 			logger.Println("The", modFile.DirectPackage().Path(), "module is a potential fork, since go.mod has mismatching module."+
-				" Building forks is not supported yet. See https://github.com/bwplotka/bingo/issues/110.")
+				" Building forks is not supported yet. See https://github.com/gomodules/bingo/issues/110.")
 		}
 		return errors.Wrap(err, "build versioned")
 	}
@@ -811,14 +811,14 @@ func install(ctx context.Context, logger *log.Logger, r *runner.Runner, modDir s
 
 const modREADMEFmt = `# Project Development Dependencies.
 
-This is directory which stores Go modules with pinned buildable package that is used within this repository, managed by https://github.com/bwplotka/bingo.
+This is directory which stores Go modules with pinned buildable package that is used within this repository, managed by https://github.com/gomodules/bingo.
 
 * Run ` + "`" + "bingo get" + "`" + ` to install all tools having each own module file in this directory.
 * Run ` + "`" + "bingo get <tool>" + "`" + ` to install <tool> that have own module file in this directory.
 * For Makefile: Make sure to put ` + "`" + "include %s/Variables.mk" + "`" + ` in your Makefile, then use $(<upper case tool name>) variable where <tool> is the %s/<tool>.mod.
 * For shell: Run ` + "`" + "source %s/variables.env" + "`" + ` to source all environment variable for each tool.
 * For go: Import ` + "`" + "%s/variables.go" + "`" + ` to for variable names.
-* See https://github.com/bwplotka/bingo or -h on how to add, remove or change binaries dependencies.
+* See https://github.com/gomodules/bingo or -h on how to add, remove or change binaries dependencies.
 
 ## Requirements
 
@@ -856,7 +856,7 @@ func ensureModDirExists(logger *log.Logger, relModDir string) error {
 	// Hack against:
 	// "A file named go.mod must still be present in order to determine the module root directory, but it is not accessed."
 	// Ref: https://golang.org/doc/go1.14#go-flags
-	// TODO(bwplotka): Remove it: https://github.com/bwplotka/bingo/issues/20
+	// TODO(bwplotka): Remove it: https://github.com/gomodules/bingo/issues/20
 	if err := os.WriteFile(
 		filepath.Join(relModDir, bingo.FakeRootModFileName),
 		[]byte("module _ // Fake go.mod auto-created by 'bingo' for go -moddir compatibility with non-Go projects. Commit this file, together with other .mod files."),

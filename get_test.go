@@ -29,8 +29,8 @@ func TestParseTarget(t *testing.T) {
 			expectedVersions: []string{""},
 		},
 		{
-			target:       "github.com/bwplotka/bingo",
-			expectedName: "bingo", expectedPkgPath: "github.com/bwplotka/bingo",
+			target:       "github.com/gomodules/bingo",
+			expectedName: "bingo", expectedPkgPath: "github.com/gomodules/bingo",
 			expectedVersions: []string{""},
 		},
 		{
@@ -44,8 +44,8 @@ func TestParseTarget(t *testing.T) {
 			expectedVersions: []string{""},
 		},
 		{
-			target:       "github.com/bwplotka/bingo/v21314213532",
-			expectedName: "bingo", expectedPkgPath: "github.com/bwplotka/bingo/v21314213532",
+			target:       "github.com/gomodules/bingo/v21314213532",
+			expectedName: "bingo", expectedPkgPath: "github.com/gomodules/bingo/v21314213532",
 			expectedVersions: []string{""},
 		},
 		{
@@ -69,8 +69,8 @@ func TestParseTarget(t *testing.T) {
 			expectedErr: errors.New("none is not allowed when there are more than one specified Version, got: [version1123 version13 none]"),
 		},
 		{
-			target:       "github.com/bwplotka/bingo/v2@v0.2.5-rc.1214,bb92924b84d060515f8eb35f428a8fd816c1d938,version1241",
-			expectedName: "bingo", expectedPkgPath: "github.com/bwplotka/bingo/v2", expectedVersions: []string{"v0.2.5-rc.1214", "bb92924b84d060515f8eb35f428a8fd816c1d938", "version1241"},
+			target:       "github.com/gomodules/bingo/v2@v0.2.5-rc.1214,bb92924b84d060515f8eb35f428a8fd816c1d938,version1241",
+			expectedName: "bingo", expectedPkgPath: "github.com/gomodules/bingo/v2", expectedVersions: []string{"v0.2.5-rc.1214", "bb92924b84d060515f8eb35f428a8fd816c1d938", "version1241"},
 		},
 	} {
 		t.Run("", func(t *testing.T) {

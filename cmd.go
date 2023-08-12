@@ -16,9 +16,9 @@ import (
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
 
-	"github.com/bwplotka/bingo/pkg/bingo"
-	"github.com/bwplotka/bingo/pkg/runner"
-	"github.com/bwplotka/bingo/pkg/version"
+	"github.com/gomodules/bingo/pkg/bingo"
+	"github.com/gomodules/bingo/pkg/runner"
+	"github.com/gomodules/bingo/pkg/version"
 )
 
 func NewBingoGetCommand(logger *log.Logger) *cobra.Command {

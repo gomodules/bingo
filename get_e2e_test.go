@@ -12,9 +12,9 @@ import (
 	"testing"
 
 	"github.com/Masterminds/semver"
-	"github.com/bwplotka/bingo/pkg/bingo"
-	"github.com/bwplotka/bingo/pkg/runner"
-	"github.com/bwplotka/bingo/pkg/version"
+	"github.com/gomodules/bingo/pkg/bingo"
+	"github.com/gomodules/bingo/pkg/runner"
+	"github.com/gomodules/bingo/pkg/version"
 	"github.com/efficientgo/core/testutil"
 )
 
@@ -55,38 +55,38 @@ func TestGetList(t *testing.T) {
 				{
 					name: "get one module by tag on empty project",
 					do: func(t *testing.T) {
-						fmt.Println(g.ExecOutput(t, p.root, bingoPath, "get", "github.com/bwplotka/bingo-testmodule/buildable@v1.0.0"))
+						fmt.Println(g.ExecOutput(t, p.root, bingoPath, "get", "github.com/gomodules/bingo-testmodule/buildable@v1.0.0"))
 						testutil.Equals(t, g.ExecOutput(t, p.root, bingoPath, "list", "buildable"), g.ExecOutput(t, p.root, bingoPath, "list"))
 					},
-					expectRows:     []row{{name: "buildable", binName: "buildable-v1.0.0", pkgVersion: "github.com/bwplotka/bingo-testmodule/buildable@v1.0.0"}},
+					expectRows:     []row{{name: "buildable", binName: "buildable-v1.0.0", pkgVersion: "github.com/gomodules/bingo-testmodule/buildable@v1.0.0"}},
 					expectBinaries: []string{"buildable-v1.0.0"},
 				},
 				{
 					name: "get the same module by tag does not change anything",
 					do: func(t *testing.T) {
-						fmt.Println(g.ExecOutput(t, p.root, bingoPath, "get", "github.com/bwplotka/bingo-testmodule/buildable@v1.0.0"))
+						fmt.Println(g.ExecOutput(t, p.root, bingoPath, "get", "github.com/gomodules/bingo-testmodule/buildable@v1.0.0"))
 						testutil.Equals(t, g.ExecOutput(t, p.root, bingoPath, "list", "buildable"), g.ExecOutput(t, p.root, bingoPath, "list"))
 					},
-					expectRows:                 []row{{name: "buildable", binName: "buildable-v1.0.0", pkgVersion: "github.com/bwplotka/bingo-testmodule/buildable@v1.0.0"}},
+					expectRows:                 []row{{name: "buildable", binName: "buildable-v1.0.0", pkgVersion: "github.com/gomodules/bingo-testmodule/buildable@v1.0.0"}},
 					expectSameBinariesAsBefore: true,
 				},
 				{
 					name: "get the same module by commit does not change anything",
 					do: func(t *testing.T) {
-						fmt.Println(g.ExecOutput(t, p.root, bingoPath, "get", "github.com/bwplotka/bingo-testmodule/buildable@4040b74bfd07be764f2ad16ddbf7fba07b247f1c"))
+						fmt.Println(g.ExecOutput(t, p.root, bingoPath, "get", "github.com/gomodules/bingo-testmodule/buildable@4040b74bfd07be764f2ad16ddbf7fba07b247f1c"))
 						testutil.Equals(t, g.ExecOutput(t, p.root, bingoPath, "list", "buildable"), g.ExecOutput(t, p.root, bingoPath, "list"))
 					},
-					expectRows:                 []row{{name: "buildable", binName: "buildable-v1.0.0", pkgVersion: "github.com/bwplotka/bingo-testmodule/buildable@v1.0.0"}},
+					expectRows:                 []row{{name: "buildable", binName: "buildable-v1.0.0", pkgVersion: "github.com/gomodules/bingo-testmodule/buildable@v1.0.0"}},
 					expectSameBinariesAsBefore: true,
 				},
 				{
 					name: "get the different module with different tool name by commit",
 					do: func(t *testing.T) {
-						fmt.Println(g.ExecOutput(t, p.root, bingoPath, "get", "github.com/bwplotka/bingo-testmodule/buildable2@9d83f47b84c5d9262ecaf649bfa01f0f1cb6ebd2"))
+						fmt.Println(g.ExecOutput(t, p.root, bingoPath, "get", "github.com/gomodules/bingo-testmodule/buildable2@9d83f47b84c5d9262ecaf649bfa01f0f1cb6ebd2"))
 					},
 					expectRows: []row{
-						{name: "buildable", binName: "buildable-v1.0.0", pkgVersion: "github.com/bwplotka/bingo-testmodule/buildable@v1.0.0"},
-						{name: "buildable2", binName: "buildable2-v0.0.0-20221007091238-9d83f47b84c5", pkgVersion: "github.com/bwplotka/bingo-testmodule/buildable2@v0.0.0-20221007091238-9d83f47b84c5"},
+						{name: "buildable", binName: "buildable-v1.0.0", pkgVersion: "github.com/gomodules/bingo-testmodule/buildable@v1.0.0"},
+						{name: "buildable2", binName: "buildable2-v0.0.0-20221007091238-9d83f47b84c5", pkgVersion: "github.com/gomodules/bingo-testmodule/buildable2@v0.0.0-20221007091238-9d83f47b84c5"},
 					},
 					expectBinaries: []string{"buildable-v1.0.0", "buildable2-v0.0.0-20221007091238-9d83f47b84c5"},
 				},
@@ -96,31 +96,31 @@ func TestGetList(t *testing.T) {
 						fmt.Println(g.ExecOutput(t, p.root, bingoPath, "get", "buildable@latest"))
 					},
 					expectRows: []row{
-						{name: "buildable", binName: "buildable-v1.1.0", pkgVersion: "github.com/bwplotka/bingo-testmodule/buildable@v1.1.0"},
-						{name: "buildable2", binName: "buildable2-v0.0.0-20221007091238-9d83f47b84c5", pkgVersion: "github.com/bwplotka/bingo-testmodule/buildable2@v0.0.0-20221007091238-9d83f47b84c5"},
+						{name: "buildable", binName: "buildable-v1.1.0", pkgVersion: "github.com/gomodules/bingo-testmodule/buildable@v1.1.0"},
+						{name: "buildable2", binName: "buildable2-v0.0.0-20221007091238-9d83f47b84c5", pkgVersion: "github.com/gomodules/bingo-testmodule/buildable2@v0.0.0-20221007091238-9d83f47b84c5"},
 					},
 					expectBinaries: []string{"buildable-v1.0.0", "buildable-v1.1.0", "buildable2-v0.0.0-20221007091238-9d83f47b84c5"},
 				},
 				{
 					name: "downgrade the tool",
 					do: func(t *testing.T) {
-						fmt.Println(g.ExecOutput(t, p.root, bingoPath, "get", "github.com/bwplotka/bingo-testmodule/buildable@v1.0.0"))
+						fmt.Println(g.ExecOutput(t, p.root, bingoPath, "get", "github.com/gomodules/bingo-testmodule/buildable@v1.0.0"))
 					},
 					expectRows: []row{
-						{name: "buildable", binName: "buildable-v1.0.0", pkgVersion: "github.com/bwplotka/bingo-testmodule/buildable@v1.0.0"},
-						{name: "buildable2", binName: "buildable2-v0.0.0-20221007091238-9d83f47b84c5", pkgVersion: "github.com/bwplotka/bingo-testmodule/buildable2@v0.0.0-20221007091238-9d83f47b84c5"},
+						{name: "buildable", binName: "buildable-v1.0.0", pkgVersion: "github.com/gomodules/bingo-testmodule/buildable@v1.0.0"},
+						{name: "buildable2", binName: "buildable2-v0.0.0-20221007091238-9d83f47b84c5", pkgVersion: "github.com/gomodules/bingo-testmodule/buildable2@v0.0.0-20221007091238-9d83f47b84c5"},
 					},
 					expectSameBinariesAsBefore: true,
 				},
 				{
 					name: "get same tool under different name",
 					do: func(t *testing.T) {
-						fmt.Println(g.ExecOutput(t, p.root, bingoPath, "get", "-n", "buildable-v2", "github.com/bwplotka/bingo-testmodule/v2/buildable@v2.0.0"))
+						fmt.Println(g.ExecOutput(t, p.root, bingoPath, "get", "-n", "buildable-v2", "github.com/gomodules/bingo-testmodule/v2/buildable@v2.0.0"))
 					},
 					expectRows: []row{
-						{name: "buildable", binName: "buildable-v1.0.0", pkgVersion: "github.com/bwplotka/bingo-testmodule/buildable@v1.0.0"},
-						{name: "buildable-v2", binName: "buildable-v2-v2.0.0", pkgVersion: "github.com/bwplotka/bingo-testmodule/v2/buildable@v2.0.0"},
-						{name: "buildable2", binName: "buildable2-v0.0.0-20221007091238-9d83f47b84c5", pkgVersion: "github.com/bwplotka/bingo-testmodule/buildable2@v0.0.0-20221007091238-9d83f47b84c5"},
+						{name: "buildable", binName: "buildable-v1.0.0", pkgVersion: "github.com/gomodules/bingo-testmodule/buildable@v1.0.0"},
+						{name: "buildable-v2", binName: "buildable-v2-v2.0.0", pkgVersion: "github.com/gomodules/bingo-testmodule/v2/buildable@v2.0.0"},
+						{name: "buildable2", binName: "buildable2-v0.0.0-20221007091238-9d83f47b84c5", pkgVersion: "github.com/gomodules/bingo-testmodule/buildable2@v0.0.0-20221007091238-9d83f47b84c5"},
 					},
 					expectBinaries: []string{"buildable-v1.0.0", "buildable-v1.1.0", "buildable-v2-v2.0.0", "buildable2-v0.0.0-20221007091238-9d83f47b84c5"},
 				},
@@ -130,9 +130,9 @@ func TestGetList(t *testing.T) {
 						fmt.Println(g.ExecOutput(t, p.root, bingoPath, "get", "-r", "my-buildable-v2", "buildable-v2"))
 					},
 					expectRows: []row{
-						{name: "buildable", binName: "buildable-v1.0.0", pkgVersion: "github.com/bwplotka/bingo-testmodule/buildable@v1.0.0"},
-						{name: "buildable2", binName: "buildable2-v0.0.0-20221007091238-9d83f47b84c5", pkgVersion: "github.com/bwplotka/bingo-testmodule/buildable2@v0.0.0-20221007091238-9d83f47b84c5"},
-						{name: "my-buildable-v2", binName: "my-buildable-v2-v2.0.0", pkgVersion: "github.com/bwplotka/bingo-testmodule/v2/buildable@v2.0.0"},
+						{name: "buildable", binName: "buildable-v1.0.0", pkgVersion: "github.com/gomodules/bingo-testmodule/buildable@v1.0.0"},
+						{name: "buildable2", binName: "buildable2-v0.0.0-20221007091238-9d83f47b84c5", pkgVersion: "github.com/gomodules/bingo-testmodule/buildable2@v0.0.0-20221007091238-9d83f47b84c5"},
+						{name: "my-buildable-v2", binName: "my-buildable-v2-v2.0.0", pkgVersion: "github.com/gomodules/bingo-testmodule/v2/buildable@v2.0.0"},
 					},
 					expectBinaries: []string{"buildable-v1.0.0", "buildable-v1.1.0", "buildable-v2-v2.0.0", "buildable2-v0.0.0-20221007091238-9d83f47b84c5", "my-buildable-v2-v2.0.0"},
 				},
@@ -142,9 +142,9 @@ func TestGetList(t *testing.T) {
 						fmt.Println(g.ExecOutput(t, p.root, bingoPath, "get", "-l", "buildable"))
 					},
 					expectRows: []row{
-						{name: "buildable", binName: "buildable-v1.0.0", pkgVersion: "github.com/bwplotka/bingo-testmodule/buildable@v1.0.0"},
-						{name: "buildable2", binName: "buildable2-v0.0.0-20221007091238-9d83f47b84c5", pkgVersion: "github.com/bwplotka/bingo-testmodule/buildable2@v0.0.0-20221007091238-9d83f47b84c5"},
-						{name: "my-buildable-v2", binName: "my-buildable-v2-v2.0.0", pkgVersion: "github.com/bwplotka/bingo-testmodule/v2/buildable@v2.0.0"},
+						{name: "buildable", binName: "buildable-v1.0.0", pkgVersion: "github.com/gomodules/bingo-testmodule/buildable@v1.0.0"},
+						{name: "buildable2", binName: "buildable2-v0.0.0-20221007091238-9d83f47b84c5", pkgVersion: "github.com/gomodules/bingo-testmodule/buildable2@v0.0.0-20221007091238-9d83f47b84c5"},
+						{name: "my-buildable-v2", binName: "my-buildable-v2-v2.0.0", pkgVersion: "github.com/gomodules/bingo-testmodule/v2/buildable@v2.0.0"},
 					},
 					expectBinaries: []string{"buildable", "buildable-v1.0.0", "buildable-v1.1.0", "buildable-v2-v2.0.0", "buildable2-v0.0.0-20221007091238-9d83f47b84c5", "my-buildable-v2-v2.0.0"},
 				},
@@ -154,22 +154,22 @@ func TestGetList(t *testing.T) {
 						fmt.Println(g.ExecOutput(t, p.root, bingoPath, "get", "buildable@none"))
 					},
 					expectRows: []row{
-						{name: "buildable2", binName: "buildable2-v0.0.0-20221007091238-9d83f47b84c5", pkgVersion: "github.com/bwplotka/bingo-testmodule/buildable2@v0.0.0-20221007091238-9d83f47b84c5"},
-						{name: "my-buildable-v2", binName: "my-buildable-v2-v2.0.0", pkgVersion: "github.com/bwplotka/bingo-testmodule/v2/buildable@v2.0.0"},
+						{name: "buildable2", binName: "buildable2-v0.0.0-20221007091238-9d83f47b84c5", pkgVersion: "github.com/gomodules/bingo-testmodule/buildable2@v0.0.0-20221007091238-9d83f47b84c5"},
+						{name: "my-buildable-v2", binName: "my-buildable-v2-v2.0.0", pkgVersion: "github.com/gomodules/bingo-testmodule/v2/buildable@v2.0.0"},
 					},
 					expectSameBinariesAsBefore: true,
 				},
 				{
 					name: "install array version",
 					do: func(t *testing.T) {
-						fmt.Println(g.ExecOutput(t, p.root, bingoPath, "get", "github.com/bwplotka/bingo-testmodule/buildable@39a7f0ae0b1e1e67a75033fc671ccc2c5b3bbddf,v1.0.0,v1.1.0"))
+						fmt.Println(g.ExecOutput(t, p.root, bingoPath, "get", "github.com/gomodules/bingo-testmodule/buildable@39a7f0ae0b1e1e67a75033fc671ccc2c5b3bbddf,v1.0.0,v1.1.0"))
 					},
 					expectRows: []row{
-						{name: "buildable", binName: "buildable-v0.0.0-20221007091146-39a7f0ae0b1e", pkgVersion: "github.com/bwplotka/bingo-testmodule/buildable@v0.0.0-20221007091146-39a7f0ae0b1e"},
-						{name: "buildable", binName: "buildable-v1.0.0", pkgVersion: "github.com/bwplotka/bingo-testmodule/buildable@v1.0.0"},
-						{name: "buildable", binName: "buildable-v1.1.0", pkgVersion: "github.com/bwplotka/bingo-testmodule/buildable@v1.1.0"},
-						{name: "buildable2", binName: "buildable2-v0.0.0-20221007091238-9d83f47b84c5", pkgVersion: "github.com/bwplotka/bingo-testmodule/buildable2@v0.0.0-20221007091238-9d83f47b84c5"},
-						{name: "my-buildable-v2", binName: "my-buildable-v2-v2.0.0", pkgVersion: "github.com/bwplotka/bingo-testmodule/v2/buildable@v2.0.0"},
+						{name: "buildable", binName: "buildable-v0.0.0-20221007091146-39a7f0ae0b1e", pkgVersion: "github.com/gomodules/bingo-testmodule/buildable@v0.0.0-20221007091146-39a7f0ae0b1e"},
+						{name: "buildable", binName: "buildable-v1.0.0", pkgVersion: "github.com/gomodules/bingo-testmodule/buildable@v1.0.0"},
+						{name: "buildable", binName: "buildable-v1.1.0", pkgVersion: "github.com/gomodules/bingo-testmodule/buildable@v1.1.0"},
+						{name: "buildable2", binName: "buildable2-v0.0.0-20221007091238-9d83f47b84c5", pkgVersion: "github.com/gomodules/bingo-testmodule/buildable2@v0.0.0-20221007091238-9d83f47b84c5"},
+						{name: "my-buildable-v2", binName: "my-buildable-v2-v2.0.0", pkgVersion: "github.com/gomodules/bingo-testmodule/v2/buildable@v2.0.0"},
 					},
 					expectBinaries: []string{"buildable", "buildable-v0.0.0-20221007091146-39a7f0ae0b1e", "buildable-v1.0.0", "buildable-v1.1.0", "buildable-v2-v2.0.0", "buildable2-v0.0.0-20221007091238-9d83f47b84c5", "my-buildable-v2-v2.0.0"},
 				},
@@ -179,23 +179,23 @@ func TestGetList(t *testing.T) {
 						fmt.Println(g.ExecOutput(t, p.root, bingoPath, "get", "buildable@v1.1.0"))
 					},
 					expectRows: []row{
-						{name: "buildable", binName: "buildable-v1.1.0", pkgVersion: "github.com/bwplotka/bingo-testmodule/buildable@v1.1.0"},
-						{name: "buildable2", binName: "buildable2-v0.0.0-20221007091238-9d83f47b84c5", pkgVersion: "github.com/bwplotka/bingo-testmodule/buildable2@v0.0.0-20221007091238-9d83f47b84c5"},
-						{name: "my-buildable-v2", binName: "my-buildable-v2-v2.0.0", pkgVersion: "github.com/bwplotka/bingo-testmodule/v2/buildable@v2.0.0"},
+						{name: "buildable", binName: "buildable-v1.1.0", pkgVersion: "github.com/gomodules/bingo-testmodule/buildable@v1.1.0"},
+						{name: "buildable2", binName: "buildable2-v0.0.0-20221007091238-9d83f47b84c5", pkgVersion: "github.com/gomodules/bingo-testmodule/buildable2@v0.0.0-20221007091238-9d83f47b84c5"},
+						{name: "my-buildable-v2", binName: "my-buildable-v2-v2.0.0", pkgVersion: "github.com/gomodules/bingo-testmodule/v2/buildable@v2.0.0"},
 					},
 					expectSameBinariesAsBefore: true,
 				},
 				{
 					name: "get from single version back to array",
 					do: func(t *testing.T) {
-						fmt.Println(g.ExecOutput(t, p.root, bingoPath, "get", "github.com/bwplotka/bingo-testmodule/buildable@39a7f0ae0b1e1e67a75033fc671ccc2c5b3bbddf,v1.0.0,v1.1.0"))
+						fmt.Println(g.ExecOutput(t, p.root, bingoPath, "get", "github.com/gomodules/bingo-testmodule/buildable@39a7f0ae0b1e1e67a75033fc671ccc2c5b3bbddf,v1.0.0,v1.1.0"))
 					},
 					expectRows: []row{
-						{name: "buildable", binName: "buildable-v0.0.0-20221007091146-39a7f0ae0b1e", pkgVersion: "github.com/bwplotka/bingo-testmodule/buildable@v0.0.0-20221007091146-39a7f0ae0b1e"},
-						{name: "buildable", binName: "buildable-v1.0.0", pkgVersion: "github.com/bwplotka/bingo-testmodule/buildable@v1.0.0"},
-						{name: "buildable", binName: "buildable-v1.1.0", pkgVersion: "github.com/bwplotka/bingo-testmodule/buildable@v1.1.0"},
-						{name: "buildable2", binName: "buildable2-v0.0.0-20221007091238-9d83f47b84c5", pkgVersion: "github.com/bwplotka/bingo-testmodule/buildable2@v0.0.0-20221007091238-9d83f47b84c5"},
-						{name: "my-buildable-v2", binName: "my-buildable-v2-v2.0.0", pkgVersion: "github.com/bwplotka/bingo-testmodule/v2/buildable@v2.0.0"},
+						{name: "buildable", binName: "buildable-v0.0.0-20221007091146-39a7f0ae0b1e", pkgVersion: "github.com/gomodules/bingo-testmodule/buildable@v0.0.0-20221007091146-39a7f0ae0b1e"},
+						{name: "buildable", binName: "buildable-v1.0.0", pkgVersion: "github.com/gomodules/bingo-testmodule/buildable@v1.0.0"},
+						{name: "buildable", binName: "buildable-v1.1.0", pkgVersion: "github.com/gomodules/bingo-testmodule/buildable@v1.1.0"},
+						{name: "buildable2", binName: "buildable2-v0.0.0-20221007091238-9d83f47b84c5", pkgVersion: "github.com/gomodules/bingo-testmodule/buildable2@v0.0.0-20221007091238-9d83f47b84c5"},
+						{name: "my-buildable-v2", binName: "my-buildable-v2-v2.0.0", pkgVersion: "github.com/gomodules/bingo-testmodule/v2/buildable@v2.0.0"},
 					},
 					expectSameBinariesAsBefore: true,
 				},
@@ -252,10 +252,10 @@ func TestGet_Errors(t *testing.T) {
 	//							// Updating f4 to multiple versions with none should fail.
 	//							testutil.NotOk(t, g.ExpectErr(p.root, bingoPath, "get", "f2@v1.4.0,v1.1.0,none"))
 	//							// Installing by different path that would result in same name
-	//							testutil.NotOk(t, g.ExpectErr(p.root, bingoPath, "get", "github.com/bwplotka/bingo/some/module/buildable"))
+	//							testutil.NotOk(t, g.ExpectErr(p.root, bingoPath, "get", "github.com/gomodules/bingo/some/module/buildable"))
 	//							// Removing by path.
-	//							testutil.NotOk(t, g.ExpectErr(p.root, bingoPath, "get", "github.com/bwplotka/bingo/testdata/module/buildable@none"))
-	//							testutil.NotOk(t, g.ExpectErr(p.root, bingoPath, "get", "github.com/bwplotka/bingo/some/module/buildable@none"))
+	//							testutil.NotOk(t, g.ExpectErr(p.root, bingoPath, "get", "github.com/gomodules/bingo/testdata/module/buildable@none"))
+	//							testutil.NotOk(t, g.ExpectErr(p.root, bingoPath, "get", "github.com/gomodules/bingo/some/module/buildable@none"))
 	//							// Removing non existing tool.
 	//							testutil.NotOk(t, g.ExpectErr(p.root, bingoPath, "get", "buildable2@none"))
 	//						},
@@ -266,9 +266,9 @@ func TestGet_Errors(t *testing.T) {
 	// Use g.ExpectErr(p...
 	// 	name: "-r rename error cases",
 	//						do: func(t *testing.T) {
-	//							testutil.NotOk(t, g.ExpectErr(p.root, bingoPath, "get", "-r=buildable4", "github.com/bwplotka/bingo/testdata/module/buildable2"))
-	//							testutil.NotOk(t, g.ExpectErr(p.root, bingoPath, "get", "-r=buildable4", "github.com/bwplotka/bingo/testdata/module/buildable2@v0.0.0-20210109093942-2e6391144e85"))
-	//							testutil.NotOk(t, g.ExpectErr(p.root, bingoPath, "get", "-r=buildable4", "github.com/bwplotka/bingo/testdata/module/buildable2@none"))
+	//							testutil.NotOk(t, g.ExpectErr(p.root, bingoPath, "get", "-r=buildable4", "github.com/gomodules/bingo/testdata/module/buildable2"))
+	//							testutil.NotOk(t, g.ExpectErr(p.root, bingoPath, "get", "-r=buildable4", "github.com/gomodules/bingo/testdata/module/buildable2@v0.0.0-20210109093942-2e6391144e85"))
+	//							testutil.NotOk(t, g.ExpectErr(p.root, bingoPath, "get", "-r=buildable4", "github.com/gomodules/bingo/testdata/module/buildable2@none"))
 	//							testutil.NotOk(t, g.ExpectErr(p.root, bingoPath, "get", "-r=buildable4", "buildable2@none"))
 	//							testutil.NotOk(t, g.ExpectErr(p.root, bingoPath, "get", "-r=buildable4", "buildable2@v0.0.0-20210109093942-2e6391144e85"))
 	//							testutil.NotOk(t, g.ExpectErr(p.root, bingoPath, "get", "-r=faillint", "buildable2")) // Renaming to existing name.
@@ -286,12 +286,12 @@ func TestGet_Errors(t *testing.T) {
 	//							testutil.Equals(t, "module_with_replace.buildable 2.7\n", g.ExecOutput(t, p.root, filepath.Join(g.gobin, "wr_buildable-v0.0.0-20210109165512-ccbd4039b94a")))
 	//						},
 	//						expectRows: []row{
-	//							{name: "buildable", binName: "buildable-v0.0.0-20210109094001-375d0606849d", pkgVersion: "github.com/bwplotka/bingo/testdata/module/buildable@v0.0.0-20210109094001-375d0606849d"},
-	//							{name: "buildable2", binName: "buildable2-v0.0.0-20210109093942-2e6391144e85", pkgVersion: "github.com/bwplotka/bingo/testdata/module/buildable2@v0.0.0-20210109093942-2e6391144e85"},
-	//							{name: "buildable_old", binName: "buildable_old-v0.0.0-20210109093942-2e6391144e85", pkgVersion: "github.com/bwplotka/bingo/testdata/module/buildable@v0.0.0-20210109093942-2e6391144e85"},
+	//							{name: "buildable", binName: "buildable-v0.0.0-20210109094001-375d0606849d", pkgVersion: "github.com/gomodules/bingo/testdata/module/buildable@v0.0.0-20210109094001-375d0606849d"},
+	//							{name: "buildable2", binName: "buildable2-v0.0.0-20210109093942-2e6391144e85", pkgVersion: "github.com/gomodules/bingo/testdata/module/buildable2@v0.0.0-20210109093942-2e6391144e85"},
+	//							{name: "buildable_old", binName: "buildable_old-v0.0.0-20210109093942-2e6391144e85", pkgVersion: "github.com/gomodules/bingo/testdata/module/buildable@v0.0.0-20210109093942-2e6391144e85"},
 	//							{name: "faillint", binName: "faillint-v1.3.0", pkgVersion: "github.com/fatih/faillint@v1.3.0"},
 	//							{name: "go-bindata", binName: "go-bindata-v3.1.1+incompatible", pkgVersion: "github.com/go-bindata/go-bindata/go-bindata@v3.1.1+incompatible"},
-	//							{name: "wr_buildable", binName: "wr_buildable-v0.0.0-20210109165512-ccbd4039b94a", pkgVersion: "github.com/bwplotka/bingo/testdata/module_with_replace/buildable@v0.0.0-20210109165512-ccbd4039b94a"},
+	//							{name: "wr_buildable", binName: "wr_buildable-v0.0.0-20210109165512-ccbd4039b94a", pkgVersion: "github.com/gomodules/bingo/testdata/module_with_replace/buildable@v0.0.0-20210109165512-ccbd4039b94a"},
 	//						},
 	//						expectBinaries: []string{
 	//							"buildable-v0.0.0-20210109093942-2e6391144e85", "buildable-v0.0.0-20210109094001-375d0606849d", "buildable2-v0.0.0-20210109093942-2e6391144e85",
@@ -317,10 +317,10 @@ func TestCompatibilityCurrentVersionCreate(t *testing.T) {
 	p := newTestProject(t, filepath.Join(g.tmpDir, "newproject"), filepath.Join(g.tmpDir, "testproject"), false)
 	p.assertNotChanged(t)
 
-	fmt.Println(g.ExecOutput(t, p.root, bingoPath, "get", "github.com/bwplotka/bingo-testmodule/buildable@39a7f0ae0b1e1e67a75033fc671ccc2c5b3bbddf,v1.0.0,v1.1.0"))
-	fmt.Println(g.ExecOutput(t, p.root, bingoPath, "get", "github.com/bwplotka/bingo-testmodule/buildable2@9d83f47b84c5d9262ecaf649bfa01f0f1cb6ebd2"))
-	fmt.Println(g.ExecOutput(t, p.root, bingoPath, "get", "-n", "buildable-v2", "github.com/bwplotka/bingo-testmodule/v2/buildable@v2.0.0"))
-	fmt.Println(g.ExecOutput(t, p.root, bingoPath, "get", "-n", "buildable-withReplace", "github.com/bwplotka/bingo-testmodule/buildable@fe4d42a37d927cbf6d2c0f30fe1459d493146664"))
+	fmt.Println(g.ExecOutput(t, p.root, bingoPath, "get", "github.com/gomodules/bingo-testmodule/buildable@39a7f0ae0b1e1e67a75033fc671ccc2c5b3bbddf,v1.0.0,v1.1.0"))
+	fmt.Println(g.ExecOutput(t, p.root, bingoPath, "get", "github.com/gomodules/bingo-testmodule/buildable2@9d83f47b84c5d9262ecaf649bfa01f0f1cb6ebd2"))
+	fmt.Println(g.ExecOutput(t, p.root, bingoPath, "get", "-n", "buildable-v2", "github.com/gomodules/bingo-testmodule/v2/buildable@v2.0.0"))
+	fmt.Println(g.ExecOutput(t, p.root, bingoPath, "get", "-n", "buildable-withReplace", "github.com/gomodules/bingo-testmodule/buildable@fe4d42a37d927cbf6d2c0f30fe1459d493146664"))
 
 	expectBingoListRows(t, bingoExpectedCompatibilityRows, g.ExecOutput(t, p.root, bingoPath, "list"))
 	testutil.Equals(t, bingoExpectedCompatibilityBinaries, g.existingBinaries(t))
@@ -334,12 +334,12 @@ func TestCompatibilityCurrentVersionCreate(t *testing.T) {
 
 var (
 	bingoExpectedCompatibilityRows = []row{
-		{name: "buildable", binName: "buildable-v0.0.0-20221007091146-39a7f0ae0b1e", pkgVersion: "github.com/bwplotka/bingo-testmodule/buildable@v0.0.0-20221007091146-39a7f0ae0b1e"},
-		{name: "buildable", binName: "buildable-v1.0.0", pkgVersion: "github.com/bwplotka/bingo-testmodule/buildable@v1.0.0"},
-		{name: "buildable", binName: "buildable-v1.1.0", pkgVersion: "github.com/bwplotka/bingo-testmodule/buildable@v1.1.0"},
-		{name: "buildable-v2", binName: "buildable-v2-v2.0.0", pkgVersion: "github.com/bwplotka/bingo-testmodule/v2/buildable@v2.0.0"},
-		{name: "buildable-withReplace", binName: "buildable-withReplace-v0.0.0-20221007091003-fe4d42a37d92", pkgVersion: "github.com/bwplotka/bingo-testmodule/buildable@v0.0.0-20221007091003-fe4d42a37d92"},
-		{name: "buildable2", binName: "buildable2-v0.0.0-20221007091238-9d83f47b84c5", pkgVersion: "github.com/bwplotka/bingo-testmodule/buildable2@v0.0.0-20221007091238-9d83f47b84c5"},
+		{name: "buildable", binName: "buildable-v0.0.0-20221007091146-39a7f0ae0b1e", pkgVersion: "github.com/gomodules/bingo-testmodule/buildable@v0.0.0-20221007091146-39a7f0ae0b1e"},
+		{name: "buildable", binName: "buildable-v1.0.0", pkgVersion: "github.com/gomodules/bingo-testmodule/buildable@v1.0.0"},
+		{name: "buildable", binName: "buildable-v1.1.0", pkgVersion: "github.com/gomodules/bingo-testmodule/buildable@v1.1.0"},
+		{name: "buildable-v2", binName: "buildable-v2-v2.0.0", pkgVersion: "github.com/gomodules/bingo-testmodule/v2/buildable@v2.0.0"},
+		{name: "buildable-withReplace", binName: "buildable-withReplace-v0.0.0-20221007091003-fe4d42a37d92", pkgVersion: "github.com/gomodules/bingo-testmodule/buildable@v0.0.0-20221007091003-fe4d42a37d92"},
+		{name: "buildable2", binName: "buildable2-v0.0.0-20221007091238-9d83f47b84c5", pkgVersion: "github.com/gomodules/bingo-testmodule/buildable2@v0.0.0-20221007091238-9d83f47b84c5"},
 	}
 	bingoExpectedCompatibilityBinaries = []string{
 		"buildable-v0.0.0-20221007091146-39a7f0ae0b1e", "buildable-v1.0.0", "buildable-v1.1.0", "buildable-v2-v2.0.0", "buildable-withReplace-v0.0.0-20221007091003-fe4d42a37d92", "buildable2-v0.0.0-20221007091238-9d83f47b84c5",
@@ -412,18 +412,18 @@ func TestCompatibility(t *testing.T) {
 						if isGoProject {
 							// This should work without cd even.
 							_, err := execCmd(p.root, nil, "go", "build", "-mod=mod", "-modfile="+filepath.Join(defaultModDir, "buildable.1.mod"),
-								"-o="+filepath.Join(g.gobin, "buildable-v1.0.0"), "github.com/bwplotka/bingo-testmodule/buildable")
+								"-o="+filepath.Join(g.gobin, "buildable-v1.0.0"), "github.com/gomodules/bingo-testmodule/buildable")
 							testutil.Ok(t, err)
 							_, err = execCmd(p.root, nil, "go", "build", "-mod=mod", "-modfile="+filepath.Join(defaultModDir, "buildable-withReplace.mod"),
-								"-o="+filepath.Join(g.gobin, "buildable-withReplace-v0.0.0-20221007091003-fe4d42a37d92"), "github.com/bwplotka/bingo-testmodule/buildable")
+								"-o="+filepath.Join(g.gobin, "buildable-withReplace-v0.0.0-20221007091003-fe4d42a37d92"), "github.com/gomodules/bingo-testmodule/buildable")
 							testutil.Ok(t, err)
 						} else {
 							// For no go projects we have this "bug" that requires go.mod to be present.
 							_, err := execCmd(filepath.Join(p.root, defaultModDir), nil, "go", "build", "-mod=mod", "-modfile=buildable.1.mod",
-								"-o="+filepath.Join(g.gobin, "buildable-v1.0.0"), "github.com/bwplotka/bingo-testmodule/buildable")
+								"-o="+filepath.Join(g.gobin, "buildable-v1.0.0"), "github.com/gomodules/bingo-testmodule/buildable")
 							testutil.Ok(t, err)
 							_, err = execCmd(filepath.Join(p.root, defaultModDir), nil, "go", "build", "-mod=mod", "-modfile=buildable-withReplace.mod",
-								"-o="+filepath.Join(g.gobin, "buildable-withReplace-v0.0.0-20221007091003-fe4d42a37d92"), "github.com/bwplotka/bingo-testmodule/buildable")
+								"-o="+filepath.Join(g.gobin, "buildable-withReplace-v0.0.0-20221007091003-fe4d42a37d92"), "github.com/gomodules/bingo-testmodule/buildable")
 							testutil.Ok(t, err)
 
 						}
@@ -531,16 +531,16 @@ func TestGet_ModuleCases(t *testing.T) {
 		testutil.Equals(t, []string{}, g.existingBinaries(t))
 
 		if goVersion.LessThan(semver.MustParse("v1.18")) {
-			err := g.ExpectErr(p.root, bingoPath, "get", "github.com/bwplotka/bingo-testmodule/buildable2@d48721795572f7b824f60a5b0623e524b263ed0c")
+			err := g.ExpectErr(p.root, bingoPath, "get", "github.com/gomodules/bingo-testmodule/buildable2@d48721795572f7b824f60a5b0623e524b263ed0c")
 			testutil.NotOk(t, err)
 		} else {
-			fmt.Println(g.ExecOutput(t, p.root, bingoPath, "get", "github.com/bwplotka/bingo-testmodule/buildable2@d48721795572f7b824f60a5b0623e524b263ed0c"))
+			fmt.Println(g.ExecOutput(t, p.root, bingoPath, "get", "github.com/gomodules/bingo-testmodule/buildable2@d48721795572f7b824f60a5b0623e524b263ed0c"))
 		}
 	})
 
 	// Tricky cases TODO.
 
-	// Regression against https://github.com/bwplotka/bingo/issues/125
+	// Regression against https://github.com/gomodules/bingo/issues/125
 	//t.Run("golangcilint", func(t *testing.T) {
 	//	g.Clear(t)
 	//
@@ -558,7 +558,7 @@ func TestGet_ModuleCases(t *testing.T) {
 	//	fmt.Println(g.ExecOutput(t, p.root, bingoPath, "get", "github.com/golangci/golangci-lint/cmd/golangci-lint@v1.51.1"))
 	//})
 
-	//	// Regression test against https://github.com/bwplotka/bingo/issues/65.
+	//	// Regression test against https://github.com/gomodules/bingo/issues/65.
 	//	name: "get tool with capital letters in name",
 	//	do: func(t *testing.T, g *goEnv, p *testProject) {
 	// Println(g.ExecOutput(t, p.root, bingoPath, "get", "github.com/githubnemo/CompileDaemon@87e39427f4ba26da4400abf3b26b2e58bfc9ebe6"))
@@ -578,9 +578,9 @@ func TestGet_ModuleCases(t *testing.T) {
 	//				}
 
 	// // TODO(bwplotka): Uncomment when https://github.com/githubnemo/CompileDaemon/pull/76 is merged or
-	//		// https://github.com/bwplotka/bingo/issues/31
+	//		// https://github.com/gomodules/bingo/issues/31
 	//		//{
-	//		//	// Regression test against https://github.com/bwplotka/bingo/issues/65.
+	//		//	// Regression test against https://github.com/gomodules/bingo/issues/65.
 	//		//	name: "get tool with capital letters in name (pre modules)",
 	// fmt.Println(g.ExecOutput(t, p.root, bingoPath, "get", "github.com/githubnemo/CompileDaemon@v1.2.1"))
 

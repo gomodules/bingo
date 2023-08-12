@@ -9,7 +9,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/bwplotka/bingo/builtin"
+	"github.com/gomodules/bingo/builtin"
 
 	"github.com/spf13/cobra"
 )
@@ -26,7 +26,7 @@ Go package level binaries (e.g required as dev tools by your project!)
 built on top of Go Modules, allowing reproducible dev environments. 
 'bingo' allows to easily maintain a separate, nested Go Module for each binary. 
 
-For detailed examples and documentation see: https://github.com/bwplotka/bingo
+For detailed examples and documentation see: https://github.com/gomodules/bingo
 `,
 	}
 	flags := cmd.PersistentFlags()

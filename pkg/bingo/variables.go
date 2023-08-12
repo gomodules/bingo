@@ -7,7 +7,7 @@ var (
 	templatesByFileExt = map[string]string{
 		// TODO(bwplotka): We might want to play with better escaping to allow spaces in dir names.
 		// TODO(bwplotka): We get first binary as an example. It does not work if first one is array.
-		"mk": `# Auto generated binary variables helper managed by https://github.com/bwplotka/bingo {{ .Version }}. DO NOT EDIT.
+		"mk": `# Auto generated binary variables helper managed by https://github.com/gomodules/bingo {{ .Version }}. DO NOT EDIT.
 # All tools are designed to be build inside $GOBIN.
 BINGO_DIR := $(dir $(lastword $(MAKEFILE_LIST)))
 GOPATH ?= $(shell go env GOPATH)
@@ -36,7 +36,7 @@ $({{ $p.EnvVarName }}):{{- range $p.Versions }} $(BINGO_DIR)/{{ .ModFile }}{{- e
 {{- end }}
 {{ end}}
 `,
-		"env": `# Auto generated binary variables helper managed by https://github.com/bwplotka/bingo {{ .Version }}. DO NOT EDIT.
+		"env": `# Auto generated binary variables helper managed by https://github.com/gomodules/bingo {{ .Version }}. DO NOT EDIT.
 # All tools are designed to be build inside $GOBIN.
 # Those variables will work only until 'bingo get' was invoked, or if tools were installed via Makefile's Variables.mk.
 GOBIN=${GOBIN:=$(go env GOBIN)}

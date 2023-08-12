@@ -54,7 +54,7 @@ func TestFile(t *testing.T) {
 
 		testFile := filepath.Join(tmpDir, "test2.mod")
 
-		testutil.Ok(t, os.WriteFile(testFile, []byte(`module github.com/bwplotka/bingo
+		testutil.Ok(t, os.WriteFile(testFile, []byte(`module github.com/gomodules/bingo
 
 go 1.17
 
@@ -97,7 +97,7 @@ exclude mvdan.cc/sh/v3 v3.4.4
 		testutil.Ok(t, err)
 
 		p, comment := mf.Module()
-		testutil.Equals(t, "github.com/bwplotka/bingo", p)
+		testutil.Equals(t, "github.com/gomodules/bingo", p)
 		testutil.Equals(t, "", comment)
 
 		testutil.Equals(t, []string{"Comment 1.", "Comment 2.", "Comment 3."}, mf.Comments())
